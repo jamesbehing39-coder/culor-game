@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Game Lang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Abyssal Background & Energy Field -->
+<div class="void-background" aria-hidden="true">
+    <div class="void-layer void-base"></div>
+    <div class="void-layer void-crimson-mist"></div>
+    <div class="void-layer void-violet-core"></div>
+    <div class="void-layer void-lightning"></div>
+    <div class="ember-particles" id="emberParticles"></div>
+    <div class="energy-slash" aria-hidden="true"></div>
+</div>
+
+<header class="topbar" role="banner">
+    <div class="logo" aria-label="Color Game">
+        <span class="logo-rune" aria-hidden="true">◆</span>
+        <span class="logo-text"><span class="logo-accent">COLOR GAME</span></span>
+        <span class="logo-rune logo-rune-right" aria-hidden="true">◆</span>
+    </div>
+
+    <div class="round-display" aria-live="polite">
+        <span class="round-label">ROUND</span>
+        <span id="roundNumber" class="round-value">0</span>
+    </div>
+</header>
+
+<main class="container" role="main">
+
+    <!-- BALANCE PANEL - Compact -->
+    <section class="panel obsidian-panel balance-panel" aria-labelledby="balance-heading">
+        <div class="panel-content">
+            <div class="panel-header-row">
+                <h2 id="balance-heading" class="panel-title">VOID BALANCE</h2>
+                <div class="panel-corner top-left"></div>
+                <div class="panel-corner top-right"></div>
+                <div class="panel-corner bottom-left"></div>
+                <div class="panel-corner bottom-right"></div>
+            </div>
+
+            <div class="balance-value">
+                <span class="coin-icon" aria-hidden="true">◆</span>
+                <span id="coinBalance" class="balance-amount">10,000</span>
+                <span class="balance-suffix">CR</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- GAME SECTION - Anti-Magic Tabletop -->
+    <section class="panel obsidian-panel game-panel" aria-labelledby="game-heading">
+        <div class="panel-content">
+            <div class="panel-header-row">
+                <h2 id="game-heading" class="panel-title">VOID CHAMBER</h2>
+                <div class="panel-corner top-left"></div>
+                <div class="panel-corner top-right"></div>
+                <div class="panel-corner bottom-left"></div>
+                <div class="panel-corner bottom-right"></div>
+            </div>
+
+            <!-- DICE ROW - 3 Energy Dice -->
+            <div class="dice-row" id="diceRow" role="img" aria-label="Three energy dice">
+                <article class="energy-dice" id="rollTile1" data-face="?" data-color="" role="img" aria-label="Energy Die 1">
+                    <div class="dice-cube">
+                        <div class="dice-face dice-face-front"><div class="face-energy"><span class="dice-sigil"></span></div></div>
+                        <div class="dice-face dice-face-top"><div class="face-energy"><span class="dice-sigil"></span></div></div>
+                        <div class="dice-face dice-face-right"><div class="face-energy"><span class="dice-sigil"></span></div></div>
+                        <div class="dice-face dice-face-left"><div class="face-energy"></div></div>
+                        <div class="dice-face dice-face-back"><div class="face-energy"></div></div>
+                        <div class="dice-face dice-face-bottom"><div class="face-energy"></div></div>
+                        <div class="dice-energy-core"></div>
+                        <div class="dice-lightning"></div>
+                    </div>
+                    <div class="dice-shadow"></div>
+                    <div class="dice-impact-ring"></div>
+                </article>
+                <article class="energy-dice" id="rollTile2" data-face="?" data-color="" role="img" aria-label="Energy Die 2">
+                    <div class="dice-cube">
+                        <div class="dice-face dice-face-front"><div class="face-energy"><span class="dice-sigil"></span></div></div>
+                        <div class="dice-face dice-face-top"><div class="face-energy"><span class="dice-sigil"></span></div></div>
+                        <div class="dice-face dice-face-right"><div class="face-energy"><span class="dice-sigil"></span></div></div>
+                        <div class="dice-face dice-face-left"><div class="face-energy"></div></div>
+                        <div class="dice-face dice-face-back"><div class="face-energy"></div></div>
+                        <div class="dice-face dice-face-bottom"><div class="face-energy"></div></div>
+                        <div class="dice-energy-core"></div>
+                        <div class="dice-lightning"></div>
+                    </div>
+                    <div class="dice-shadow"></div>
+                    <div class="dice-impact-ring"></div>
+                </article>
+                <article class="energy-dice" id="rollTile3" data-face="?" data-color="" role="img" aria-label="Energy Die 3">
+                    <div class="dice-cube">
+                        <div class="dice-face dice-face-front"><div class="face-energy"><span class="dice-sigil"></span></div></div>
+                        <div class="dice-face dice-face-top"><div class="face-energy"><span class="dice-sigil"></span></div></div>
+                        <div class="dice-face dice-face-right"><div class="face-energy"><span class="dice-sigil"></span></div></div>
+                        <div class="dice-face dice-face-left"><div class="face-energy"></div></div>
+                        <div class="dice-face dice-face-back"><div class="face-energy"></div></div>
+                        <div class="dice-face dice-face-bottom"><div class="face-energy"></div></div>
+                        <div class="dice-energy-core"></div>
+                        <div class="dice-lightning"></div>
+                    </div>
+                    <div class="dice-shadow"></div>
+                    <div class="dice-impact-ring"></div>
+                </article>
+            </div>
+
+            <!-- PAYOUT LEGEND -->
+            <div class="payout-legend">
+                <span class="legend-rune">◆</span>
+                <span class="legend-label">PAYOUTS</span>
+                <span class="legend-rune">◆</span>
+                <div class="legend-items">
+                    <span class="legend-item"><span class="legend-desc">ONCE</span><span class="legend-rate">2×</span></span>
+                    <span class="legend-item"><span class="legend-desc">TWICE</span><span class="legend-rate">4×</span></span>
+                    <span class="legend-item"><span class="legend-desc">THRICE</span><span class="legend-rate">6×</span></span>
+                </div>
+            </div>
+
+            <!-- 3x2 ENERGY BETTING BOARD -->
+            <div class="betting-board" role="group" aria-label="Energy betting board, 6 colors arranged 3 by 2">
+                <div class="board-frame">
+                    <div class="board-obsidian"></div>
+                    <div class="board-crimson-veins"></div>
+                    <div class="board-violet-grid"></div>
+                    <div class="board-energy-rim"></div>
+                    <div class="board-corner-spikes">
+                        <span class="spike tl"></span>
+                        <span class="spike tr"></span>
+                        <span class="spike bl"></span>
+                        <span class="spike br"></span>
+                    </div>
+                </div>
+
+                <div class="color-grid" id="colorGrid">
+                    <!-- Top Row: YELLOW, WHITE, PINK -->
+                    <button class="energy-tile" data-color="YELLOW" style="--tile-hue: 52; --tile-sat: 95%; --tile-light: 55%;" aria-label="Bet on Yellow Energy, pays 1:1 to 1:9">
+                        <div class="tile-obsidian-frame"></div>
+                        <div class="tile-energy-field">
+                            <div class="tile-color-core" aria-hidden="true"></div>
+                            <div class="tile-lightning-veins" aria-hidden="true"></div>
+                        </div>
+                        <div class="tile-violet-rim"></div>
+                        <span class="tile-name">YELLOW</span>
+                        <span class="tile-bet-badge" aria-hidden="true"></span>
+                        <div class="tile-selection-flare" aria-hidden="true"></div>
+                    </button>
+                    <button class="energy-tile" data-color="WHITE" style="--tile-hue: 0; --tile-sat: 0%; --tile-light: 98%;" aria-label="Bet on White Energy, pays 1:1 to 1:9">
+                        <div class="tile-obsidian-frame"></div>
+                        <div class="tile-energy-field">
+                            <div class="tile-color-core" aria-hidden="true"></div>
+                            <div class="tile-lightning-veins" aria-hidden="true"></div>
+                        </div>
+                        <div class="tile-violet-rim"></div>
+                        <span class="tile-name">WHITE</span>
+                        <span class="tile-bet-badge" aria-hidden="true"></span>
+                        <div class="tile-selection-flare" aria-hidden="true"></div>
+                    </button>
+                    <button class="energy-tile" data-color="PINK" style="--tile-hue: 325; --tile-sat: 90%; --tile-light: 60%;" aria-label="Bet on Pink Energy, pays 1:1 to 1:9">
+                        <div class="tile-obsidian-frame"></div>
+                        <div class="tile-energy-field">
+                            <div class="tile-color-core" aria-hidden="true"></div>
+                            <div class="tile-lightning-veins" aria-hidden="true"></div>
+                        </div>
+                        <div class="tile-violet-rim"></div>
+                        <span class="tile-name">PINK</span>
+                        <span class="tile-bet-badge" aria-hidden="true"></span>
+                        <div class="tile-selection-flare" aria-hidden="true"></div>
+                    </button>
+                    <!-- Bottom Row: BLUE, RED, GREEN -->
+                    <button class="energy-tile" data-color="BLUE" style="--tile-hue: 210; --tile-sat: 95%; --tile-light: 50%;" aria-label="Bet on Blue Energy, pays 1:1 to 1:9">
+                        <div class="tile-obsidian-frame"></div>
+                        <div class="tile-energy-field">
+                            <div class="tile-color-core" aria-hidden="true"></div>
+                            <div class="tile-lightning-veins" aria-hidden="true"></div>
+                        </div>
+                        <div class="tile-violet-rim"></div>
+                        <span class="tile-name">BLUE</span>
+                        <span class="tile-bet-badge" aria-hidden="true"></span>
+                        <div class="tile-selection-flare" aria-hidden="true"></div>
+                    </button>
+                    <button class="energy-tile" data-color="RED" style="--tile-hue: 358; --tile-sat: 95%; --tile-light: 48%;" aria-label="Bet on Red Energy, pays 1:1 to 1:9">
+                        <div class="tile-obsidian-frame"></div>
+                        <div class="tile-energy-field">
+                            <div class="tile-color-core" aria-hidden="true"></div>
+                            <div class="tile-lightning-veins" aria-hidden="true"></div>
+                        </div>
+                        <div class="tile-violet-rim"></div>
+                        <span class="tile-name">RED</span>
+                        <span class="tile-bet-badge" aria-hidden="true"></span>
+                        <div class="tile-selection-flare" aria-hidden="true"></div>
+                    </button>
+                    <button class="energy-tile" data-color="GREEN" style="--tile-hue: 135; --tile-sat: 85%; --tile-light: 42%;" aria-label="Bet on Green Energy, pays 1:1 to 1:9">
+                        <div class="tile-obsidian-frame"></div>
+                        <div class="tile-energy-field">
+                            <div class="tile-color-core" aria-hidden="true"></div>
+                            <div class="tile-lightning-veins" aria-hidden="true"></div>
+                        </div>
+                        <div class="tile-violet-rim"></div>
+                        <span class="tile-name">GREEN</span>
+                        <span class="tile-bet-badge" aria-hidden="true"></span>
+                        <div class="tile-selection-flare" aria-hidden="true"></div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ROLL BUTTON - Under 6 Selection Box -->
+            <button id="rollButton" class="btn btn-void" aria-label="Roll the dice">
+                <span class="btn-text">ROLL</span>
+                <span class="btn-energy" aria-hidden="true"></span>
+                <span class="btn-loader" aria-hidden="true" hidden></span>
+            </button>
+
+            <!-- BETTING CONTROLS - Compact, under color grid -->
+            <div class="game-bet-controls" role="group" aria-label="Game betting controls">
+                <div class="game-bet-row">
+                    <div class="game-bet-input">
+                        <label for="betAmount" class="input-label">BET</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="number" 
+                                id="betAmount" 
+                                min="10" 
+                                max="10000" 
+                                step="10" 
+                                value="100" 
+                                placeholder="Amount"
+                                aria-describedby="bet-hint"
+                            >
+                            <span class="input-border" aria-hidden="true"></span>
+                            <span class="input-glow" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="game-quick-bets">
+                        <button type="button" id="halfBetBtn" class="btn btn-half" aria-label="Bet half balance">HALF</button>
+                        <button type="button" id="allInBtn" class="btn btn-all-in" aria-label="Bet all balance">ALL IN</button>
+                    </div>
+                </div>
+                <div class="game-bet-row game-bet-actions">
+                    <button id="addFunds" class="btn btn-violet" aria-label="Add 2 million coins">
+                        <span class="btn-text">+ ADD 2M</span>
+                        <span class="btn-energy" aria-hidden="true"></span>
+                    </button>
+                    <div class="live-balance" id="liveBalance" aria-live="polite" aria-label="Current balance">
+                        <span class="live-balance-label">BAL</span>
+                        <span class="live-balance-amount" id="liveBalanceAmount">10,000</span>
+                        <span class="live-balance-suffix">CR</span>
+                    </div>
+                </div>
+                <p id="betStatus" class="bet-status" aria-live="polite" role="status">Enter bet amount and roll to play</p>
+                <span id="bet-hint" class="visually-hidden">Minimum bet 10 coins, maximum your current balance</span>
+            </div>
+
+            <!-- SELECTED COLOR DISPLAY -->
+            <div class="selection-display">
+                <span class="selection-label">TARGET</span>
+                <p id="selectedColor" class="selection-value">Select an energy signature</p>
+            </div>
+
+            <!-- RESULT DISPLAY -->
+            <div class="result-display" aria-live="polite" role="status">
+                <div id="resultText" class="result-text">VOID STANDS READY</div>
+                <div class="result-energy-bar" aria-hidden="true"></div>
+            </div>
+
+            <p id="status" class="game-status" aria-live="polite" role="status">
+                Select energy signature, place wager, unleash void.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- HISTORY PANEL -->
+    <section class="panel obsidian-panel history-panel" aria-labelledby="history-heading">
+        <div class="panel-content">
+            <div class="panel-header-row">
+                <h2 id="history-heading" class="panel-title">VOID ARCHIVES</h2>
+                <button id="clearHistory" class="btn btn-ghost" aria-label="Purge void archives">PURGE</button>
+                <div class="panel-corner top-left"></div>
+                <div class="panel-corner top-right"></div>
+                <div class="panel-corner bottom-left"></div>
+                <div class="panel-corner bottom-right"></div>
+            </div>
+
+            <div id="history" class="history-list" role="log" aria-label="Void archive cycles">
+                <p class="empty-history">No void cycles recorded.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer" role="contentinfo">
+        <p>COLOR GAME PANTANGA</p>
+    
+    </footer>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
